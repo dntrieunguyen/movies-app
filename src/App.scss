@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+/*
+ 
+ font custom:
+ - line-height
+ - space-letter
+ 
+ font-size:
+ 
+ - text-content: 1rem
+ - text-info: 1.5rem
+ - text-title: 3rem
+ 
+ font-family
+ 
+ ////////////////
+ 
+ color:
+ 
+ - default: #020617
+ - primary: #f8fafc
+ - secondary: 
+ - success: #16a34a
+ - warning: #f59e0b
+ - info: #0284c7
+ - danger: #dc2626
+ 
+ */
+
+// .text-content {
+//    font-size: 1rem;
+// }
+// .text-info {
+//    font-size: 1.5rem;
+// }
+// .text-title {
+//    font-size: 3rem;
+// }
