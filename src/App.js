@@ -1,18 +1,17 @@
 import './App.scss';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Search from './pages/search/Search';
+import Home from './pages/home/Home';
 function App() {
    return (
-      <div>
-         <h2 className="text-title text-success font-bold">title</h2>
-
-         <h2 className="text-info text-error font-bold">info</h2>
-
-         <p className="text-content text-secondary font-bold">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-            voluptatum, vero labore at odio tempore nostrum repellendus nisi
-            repellat vel!
-         </p>
-      </div>
+      <>
+         <Router>
+            <Routes>
+               <Route path="/" element={<Home />} />
+               <Route path="/search" element={<Search />} />
+            </Routes>
+         </Router>
+      </>
    );
 }
 

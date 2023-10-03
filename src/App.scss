@@ -8,9 +8,16 @@
    box-sizing: border-box;
 }
 
+#root {
+   @apply bg-default;
+}
+
+body {
+   line-height: 1.4;
+   letter-spacing: 0.5px;
+}
 /*
- 
- font custom:
+Typography:
  - line-height
  - space-letter
  
@@ -20,28 +27,22 @@
  - text-info: 1.5rem
  - text-title: 3rem
  
- font-family
+font-family
  
- ////////////////
+ /////////////////////////////////////////////////////////////////////////////
+ /////////////////////////////////////////////////////////////////////////////
  
- color:
- 
+Color:
  - default: #020617
  - primary: #f8fafc
- - secondary: 
+ - secondary: #015C92
  - success: #16a34a
  - warning: #f59e0b
  - info: #0284c7
  - danger: #dc2626
- 
  */
-
-// .text-content {
-//    font-size: 1rem;
-// }
-// .text-info {
-//    font-size: 1.5rem;
-// }
-// .text-title {
-//    font-size: 3rem;
-// }
+@layer components {
+   .boxTitle {
+      @apply text-title text-success font-bold;
+   }
+}
