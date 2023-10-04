@@ -1,31 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../navbar/Navbar';
 import './Header.scss';
+import useFetch from '../../store/fetchAPI';
+import { prefixImg, requests } from '../../store/api';
 
 export default function Header() {
+   const { data: NetflixOriginals } = useFetch(requests.fetchNetflixOriginals);
+   const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+   useEffect(() => {
+      if (NetflixOriginals.length > 0) {
+         setIsDataLoaded(true);
+      }
+   }, [NetflixOriginals]);
+
+   if (!isDataLoaded) {
+      return null; // Return null or a loading spinner while data is being fetched
+   }
+
+   const randomBackground =
+      NetflixOriginals[Math.floor(Math.random() * NetflixOriginals.length - 1)];
+   console.log(randomBackground);
    return (
       <header>
          <Navbar></Navbar>
          <div className="absolute w-full h-full">
-            <img
-               src="https://cdn.comedy.co.uk/images/library/comedies/900x450/m/man_vs_bee.jpg"
-               alt=""
-            />
+            <img src={prefixImg + randomBackground.backdrop_path} alt="" />
             <div className="overlay-background"></div>
          </div>
 
          <div className="header-container">
             <div className="header-content">
-               <h2>đây là title</h2>
+               <h2>{randomBackground.name}</h2>
                <div className="header-btn">
                   <button>Play</button>
                   <button>My List</button>
                </div>
                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut
-                  consectetur hic quas ipsa ex natus vero omnis mollitia vitae
-                  atque? Sit voluptate laboriosam modi nobis vitae molestiae ad
-                  illo amet!
+                  {randomBackground.overview.trim().length !== 0
+                     ? randomBackground.overview
+                     : 'No description'}
                </p>
             </div>
          </div>

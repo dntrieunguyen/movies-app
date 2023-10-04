@@ -1,15 +1,22 @@
 import React from 'react';
 import './Card.scss';
+import { prefixImg } from '../../../store/api';
 
-export default function Card() {
+export default function Card({ data, title }) {
    return (
       <figure className="card">
-         <h2>Action</h2>
+         <h2>{data.type}</h2>
          <div className="cardItems">
-            <img
-               src="https://upload.wikimedia.org/wikipedia/vi/2/2d/Avengers_Endgame_bia_teaser.jpg"
-               alt=""
-            />
+            {data.map(item => (
+               <img
+                  src={
+                     data.type === 'Original'
+                        ? prefixImg + item.poster_path
+                        : prefixImg + item.backdrop_path
+                  }
+                  alt=""
+               />
+            ))}
          </div>
       </figure>
    );
