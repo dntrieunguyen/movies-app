@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Card.scss';
-import { prefixImg } from '../../../store/api';
+import { API_KEY, prefixImg } from '../../../store/api';
 
-export default function Card({ data, title }) {
+export default function Card({ data }) {
+   const onHandleClick = item => {
+      console.log(
+         `https://api.themoviedb.org/3/movie/${item.id}/videos?api_key=${API_KEY}`,
+      );
+   };
    return (
       <figure className="card">
          <h2>{data.type}</h2>
@@ -15,6 +20,7 @@ export default function Card({ data, title }) {
                         : prefixImg + item.backdrop_path
                   }
                   alt=""
+                  onClick={() => onHandleClick(item)}
                />
             ))}
          </div>

@@ -20,10 +20,7 @@ export default function Main() {
    HorrorMovies.type = 'Kinh dị';
    RomanceMovies.type = 'Lãng mạn';
    Documentaries.type = 'Tài liệu';
-
-   // const ComedyMovies = useFetch(requests.fetchComedyMovies);
-   // console.log(ActionMovies);
-
+   // 1005031
    return (
       <>
          <section className="main">

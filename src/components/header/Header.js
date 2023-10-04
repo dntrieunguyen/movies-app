@@ -20,7 +20,7 @@ export default function Header() {
 
    const randomBackground =
       NetflixOriginals[Math.floor(Math.random() * NetflixOriginals.length - 1)];
-   console.log(randomBackground);
+
    return (
       <header>
          <Navbar></Navbar>
