@@ -3,28 +3,29 @@ import './Navbar.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 export default function Navbar() {
-   const [navbarBg50, setnavbarBg50] = useState(false);
+   const [navbarBg, setnavbarBg] = useState(false); // state for event scroll
 
+   // Create function handle scroll event
    const handleChangeNavbarBg = () => {
       if (window.scrollY > 100) {
-         setnavbarBg50(true);
+         setnavbarBg(true);
       } else {
-         setnavbarBg50(false);
+         setnavbarBg(false);
       }
    };
-
+   //  add scroll event
    useEffect(() => {
       window.addEventListener('scroll', handleChangeNavbarBg);
+      return () => {
+         window.addEventListener('scroll', handleChangeNavbarBg); // cleanup scroll event listener
+      };
    }, []);
    return (
-      <div className={navbarBg50 ? 'navbar active-50' : 'navbar'}>
-         <div className="navbar__container">
-            <h2 className="cursor-pointer">Movie App</h2>
-            <FontAwesomeIcon
-               className="cursor-pointer text-info text-primary"
-               icon={faMagnifyingGlass}
-            />
+      <nav className={navbarBg ? 'navbar active' : 'navbar'}>
+         <div className="navbar-container">
+            <h2>Movie App</h2>
+            <FontAwesomeIcon className="search-icon" icon={faMagnifyingGlass} />
          </div>
-      </div>
+      </nav>
    );
 }

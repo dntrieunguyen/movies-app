@@ -2,14 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-.navbar {
+nav {
    @apply w-full h-16 z-10 fixed bg-transparent;
-   h2 {
-      @apply font-bold text-error text-info;
+
+   .navbar-container {
+      @apply container flex items-center justify-between h-full mx-auto;
+      h2 {
+         @apply font-bold cursor-pointer text-error text-info;
+      }
+      .search-icon {
+         @apply cursor-pointer text-info text-primary;
+      }
    }
 }
 
-.active-50 {
+.active {
    @apply bg-default;
    -webkit-animation: fade-in-fwd 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
    animation: fade-in-fwd 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
@@ -37,8 +44,4 @@
          opacity: 1;
       }
    }
-}
-
-.navbar__container {
-   @apply container flex items-center justify-between h-full mx-auto;
 }

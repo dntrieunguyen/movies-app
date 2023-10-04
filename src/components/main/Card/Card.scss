@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+   .scrollbar::-webkit-scrollbar {
+      width: 20px;
+      height: 15px;
+   }
+
+   .scrollbar::-webkit-scrollbar-track {
+      border-radius: 100vh;
+      background: rgba(137, 121, 121, 0.2);
+   }
+
+   .scrollbar::-webkit-scrollbar-thumb {
+      background: #000000;
+      border-radius: 100vh;
+   }
+
+   .scrollbar::-webkit-scrollbar-thumb:hover {
+      @apply bg-error;
+   }
+}
