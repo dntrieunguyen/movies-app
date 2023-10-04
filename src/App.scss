@@ -41,8 +41,3 @@ Color:
  - info: #0284c7
  - danger: #dc2626
  */
-@layer components {
-   .boxTitle {
-      @apply text-title text-success font-bold;
-   }
-}

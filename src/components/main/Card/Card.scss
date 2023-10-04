@@ -22,3 +22,19 @@
       @apply bg-error;
    }
 }
+
+.card {
+   h2 {
+      @apply font-bold text-info;
+   }
+   .cardItems {
+      @apply flex gap-4 my-5 overflow-x-auto overflow-y-hidden scrollbar;
+
+      img {
+         @apply cursor-pointer object-cover w-[200px] 
+        hover:scale-110
+        hover:transition 
+        hover:duration-500;
+      }
+   }
+}
