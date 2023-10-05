@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './Navbar.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
 export default function Navbar() {
    const [navbarBg, setnavbarBg] = useState(false); // state for event scroll
 
@@ -23,8 +25,15 @@ export default function Navbar() {
    return (
       <nav className={navbarBg ? 'navbar active' : 'navbar'}>
          <div className="navbar-container">
-            <h2>Movie App</h2>
-            <FontAwesomeIcon className="search-icon" icon={faMagnifyingGlass} />
+            <Link to="/">
+               <h2>Movie App</h2>
+            </Link>
+            <Link to="/search">
+               <FontAwesomeIcon
+                  className="search-icon"
+                  icon={faMagnifyingGlass}
+               />
+            </Link>
          </div>
       </nav>
    );

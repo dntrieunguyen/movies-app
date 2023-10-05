@@ -1,11 +1,13 @@
 import React from 'react';
+import Navbar from '../../components/navbar/Navbar';
 
 const Search = () => {
-	return (
-		<div className='app'>
-			<h1>Search</h1>
-		</div>
-	);
+   return (
+      <>
+         <Navbar></Navbar>
+         <div className="h-[800px]"></div>
+      </>
+   );
 };
 
 export default Search;

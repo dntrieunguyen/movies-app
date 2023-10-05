@@ -2,6 +2,7 @@ import './Movies.scss';
 import Card from './Card/Card';
 import { requests } from '../../store/api';
 import useFetch from '../../store/fetchAPI';
+
 export default function Main() {
    const { data: ActionMovies } = useFetch(requests.fetchActionMovies);
    const { data: ComedyMovies } = useFetch(requests.fetchComedyMovies);
@@ -21,6 +22,7 @@ export default function Main() {
    RomanceMovies.type = 'Lãng mạn';
    Documentaries.type = 'Tài liệu';
    // 1005031
+
    return (
       <>
          <section className="main">

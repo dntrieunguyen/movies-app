@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.movie-detail {
+   @apply sticky bottom-0 left-0 w-full py-6 bg-[rgba(0,0,0,0.9)] text-primary;
+
+   .movie-detail-content {
+      @apply container flex flex-col-reverse mx-auto md:grid md:grid-cols-2 md:gap-6;
+
+      .movie-detail-content__text {
+         @apply my-3 md:col-start-1;
+
+         h2 {
+            @apply my-3 font-bold text-title;
+         }
+         p {
+            &:nth-of-type(1),
+            &:nth-of-type(2) {
+               @apply my-3 font-bold text-info;
+            }
+
+            &:nth-of-type(3) {
+               @apply text-content;
+            }
+         }
+      }
+      img {
+         @apply md:object-cover h-[350px] md:h-[450px] w-full;
+      }
+   }
+}
