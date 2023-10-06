@@ -6,20 +6,30 @@ const useFetch = url => {
    const [error, setError] = useState(null);
 
    useEffect(() => {
+      let isMounted = true; // Sử dụng biến flag để theo dõi component có được mount hay không
+
       const fetchData = async () => {
          try {
             const res = await fetch(url);
             const responseData = await res.json();
-            setData(responseData.results);
-            setIsLoading(false);
+
+            // Kiểm tra nếu component vẫn được mount thì mới cập nhật state
+            if (isMounted) {
+               setData(responseData.results);
+               setIsLoading(false);
+            }
          } catch (error) {
-            throw error;
             setError(error);
             setIsLoading(false);
          }
       };
 
       fetchData();
+
+      // Cleanup: Huỷ bỏ yêu cầu fetch nếu component bị unmount hoặc effect thay đổi
+      return () => {
+         isMounted = false;
+      };
    }, [url]);
 
    return {

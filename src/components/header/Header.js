@@ -6,43 +6,47 @@ import { prefixImg, requests } from '../../store/api';
 
 export default function Header() {
    const { data: NetflixOriginals } = useFetch(requests.fetchNetflixOriginals);
-   const [isDataLoaded, setIsDataLoaded] = useState(false);
-
+   const [randomBackground, setRandomBackground] = useState();
    useEffect(() => {
-      if (NetflixOriginals.length > 0) {
-         setIsDataLoaded(true);
-      }
+      setRandomBackground(
+         NetflixOriginals[
+            Math.floor(Math.random() * NetflixOriginals.length - 1)
+         ],
+      );
    }, [NetflixOriginals]);
 
-   if (!isDataLoaded) {
-      return null; // Return null or a loading spinner while data is being fetched
-   }
-
-   const randomBackground =
-      NetflixOriginals[Math.floor(Math.random() * NetflixOriginals.length - 1)];
-
    return (
-      <header>
-         <Navbar></Navbar>
-         <div className="absolute w-full h-full">
-            <img src={prefixImg + randomBackground.backdrop_path} alt="" />
-            <div className="overlay-background"></div>
-         </div>
+      <>
+         <header>
+            <Navbar></Navbar>
+            {randomBackground && (
+               <>
+                  <div className="absolute w-full h-full">
+                     <img
+                        src={prefixImg + randomBackground.backdrop_path}
+                        alt=""
+                     />
 
-         <div className="header-container">
-            <div className="header-content">
-               <h2>{randomBackground.name}</h2>
-               <div className="header-btn">
-                  <button>Play</button>
-                  <button>My List</button>
-               </div>
-               <p>
-                  {randomBackground.overview.trim().length !== 0
-                     ? randomBackground.overview
-                     : 'No description'}
-               </p>
-            </div>
-         </div>
-      </header>
+                     <div className="overlay-background"></div>
+                  </div>
+
+                  <div className="header-container">
+                     <div className="header-content">
+                        <h2>{randomBackground.name}</h2>
+                        <div className="header-btn">
+                           <button>Play</button>
+                           <button>My List</button>
+                        </div>
+                        <p>
+                           {randomBackground.overview.trim().length !== 0
+                              ? randomBackground.overview
+                              : 'No description'}
+                        </p>
+                     </div>
+                  </div>
+               </>
+            )}
+         </header>
+      </>
    );
 }

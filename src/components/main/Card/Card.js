@@ -1,14 +1,7 @@
-import React, { useState } from 'react';
 import './Card.scss';
-import { API_KEY, prefixImg } from '../../../store/api';
-import { createPortal } from 'react-dom';
-import MovieDetail from '../../MovieDetail/MovieDetail';
+import { prefixImg } from '../../../store/api';
 
-export default function Card({ data }) {
-   const movieDetailContainer = document.getElementById('root');
-   const handleClickitem = item => {
-      console.log(item);
-   };
+export default function Card({ data, onClick }) {
    // const onHandleClick = item => {
    //    console.log(
    //       `https://api.themoviedb.org/3/movie/${item.id}/videos?api_key=${API_KEY}`,
@@ -20,13 +13,18 @@ export default function Card({ data }) {
          <div className="cardItems">
             {data.map(item => (
                <img
+                  key={item.id}
                   src={
                      data.type === 'Original'
-                        ? prefixImg + item.poster_path
-                        : prefixImg + item.backdrop_path
+                        ? item.poster_path
+                           ? prefixImg + item.poster_path
+                           : ''
+                        : item.backdrop_path
+                        ? prefixImg + item.backdrop_path
+                        : ''
                   }
                   alt=""
-                  onClick={() => handleClickitem(item)}
+                  onClick={() => onClick(item)}
                />
             ))}
          </div>
