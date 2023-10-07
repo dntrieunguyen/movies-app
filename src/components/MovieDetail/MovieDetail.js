@@ -3,11 +3,13 @@ import './MovieDetail.scss';
 import { API_KEY, prefixImg } from '../../store/api';
 import useFetch from '../../store/fetchAPI';
 
-export default function MovieDetail({ movie }) {
+export default function MovieDetail({ movie, movieClass }) {
    const [data] = movie;
+
    // const video_detail = useFetch(
    //    `https://api.themoviedb.org/3/movie/${data.id}/videos?api_key=${API_KEY}`,
-   // ).data;
+   // );
+   // console.log(video_detail);
    const [useVideoDetail, setUseVideoDetail] = useState(false);
 
    // const isVideo =
@@ -17,7 +19,7 @@ export default function MovieDetail({ movie }) {
    //       : video_detail.type === 'Teaser');
 
    return (
-      <section className="movie-detail">
+      <section className="slide-in-bottom movie-detail">
          <div className="movie-detail-content">
             <div className="movie-detail-content__text">
                <h2>{data.title || data.original_title || data.name}</h2> <hr />
