@@ -27,6 +27,8 @@ export default function Main() {
    // 1005031
    const [showDetail, setShowDetail] = useState(false);
    const [movie, setMovie] = useState([]);
+   const [video, setVideo] = useState([]);
+   const [detailInfo, setDetailInfo] = useState({});
 
    const handleClickitem = item => {
       const itemTarget = item;
@@ -40,8 +42,6 @@ export default function Main() {
       }
    };
 
-   const [video, setVideo] = useState([]);
-   console.log('video >>>', Originals);
    useEffect(() => {
       if (movie.length > 0) {
          const fetchVideos = async () => {
@@ -52,7 +52,7 @@ export default function Main() {
                const data = await response.json();
                setVideo(data.results);
             } catch (error) {
-               console.error('Error fetching videos:', error);
+               // console.error('Error fetching videos:', error);
                setVideo([]); // Trả về mảng rỗng nếu gọi API thất bại
             }
          };
@@ -61,10 +61,56 @@ export default function Main() {
       } else {
          setVideo([]);
       }
-   }, [movie]);
-   // console.log(video);
 
-   // console.log(movie[0].id); https://api.themoviedb.org/3/movie/${movie[0].id}/videos?api_key=${API_KEY} 980489
+      // if (!video || video.length === 0) {
+      //    setVideo(movie);
+      // }
+   }, [movie]);
+
+   useEffect(() => {
+      const checkVideo = video ? (video.length !== 0 ? video : movie) : movie;
+      if (checkVideo !== video) {
+         setVideo(checkVideo);
+      }
+
+      if (video) {
+         video.length === 1
+            ? video[0].backdrop_path
+               ? setDetailInfo(video[0])
+               : setDetailInfo(
+                    video.find(
+                       item =>
+                          item.site === 'YouTube' && item.type === 'Trailer',
+                    ),
+                 )
+            : setDetailInfo(
+                 video.find(
+                    item => item.site === 'YouTube' && item.type === 'Trailer',
+                 ),
+              );
+         if (video.length === 0) {
+            setDetailInfo(movie[0]);
+         }
+      }
+   }, [video, movie]);
+
+   // console.log('Check Movie >>>', movie);
+   // TH1: nó có video done
+   // TH2: Không có video và đường link API lỗi => video = undefined done
+
+   /* Xử lý sau khi đã có data chuẩn
+
+   +++ Nếu detail info === movie ===> giữ nguyên định dạng
+   
+   +++ Nếu detail Info ===  video ===>  
+   
+   XỬ lý tìm video phù hợp: site === YouTube && type === Trailer/
+   
+   Trailer === undefine ==> type === Teaser
+    
+    
+   */
+
    return (
       <>
          <section className="main">
@@ -84,6 +130,7 @@ export default function Main() {
                <MovieDetail
                   movie={movie}
                   showDetail={showDetail}
+                  detailInfo={detailInfo}
                ></MovieDetail>,
                document.getElementById('root'),
             )}

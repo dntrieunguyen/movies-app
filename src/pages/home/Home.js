@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import MovieDetail from '../../components/MovieDetail/MovieDetail';
 import Header from '../../components/header/Header';
 import Movies from '../../components/main/Movies';
 function Home() {

@@ -6,7 +6,8 @@ nav {
    @apply w-full h-16 z-10 fixed bg-transparent;
 
    .navbar-container {
-      @apply container flex items-center justify-between h-full mx-auto;
+      @apply container flex items-center justify-between h-full mx-auto px-4;
+
       h2 {
          @apply font-bold cursor-pointer text-error text-info;
       }
