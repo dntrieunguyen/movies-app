@@ -7,6 +7,7 @@ import MovieDetail from '../MovieDetail/MovieDetail';
 import { useEffect, useState } from 'react';
 
 export default function Main() {
+   // Sử dụng useFetch để lấy dữ liệu phim từ các endpoint khác nhau
    const { data: Originals } = useFetch(requests.fetchNetflixOriginals);
    const { data: Trending } = useFetch(requests.fetchTrending);
    const { data: TopRated } = useFetch(requests.fetchTopRated);
@@ -16,6 +17,7 @@ export default function Main() {
    const { data: RomanceMovies } = useFetch(requests.fetchRomanceMovies);
    const { data: Documentaries } = useFetch(requests.fetchDocumentaries);
 
+   // Gán các loại phim tương ứng vào thuộc tính 'type' của dữ liệu
    Originals.type = 'Original';
    Trending.type = 'Xu hướng';
    TopRated.type = 'Xếp hạng cao';
@@ -24,12 +26,14 @@ export default function Main() {
    HorrorMovies.type = 'Kinh dị';
    RomanceMovies.type = 'Lãng mạn';
    Documentaries.type = 'Tài liệu';
-   // 1005031
+
+   // Các state để quản lý việc hiển thị chi tiết phim
    const [showDetail, setShowDetail] = useState(false);
    const [movie, setMovie] = useState([]);
    const [video, setVideo] = useState([]);
    const [detailInfo, setDetailInfo] = useState({});
 
+   // Xử lý khi người dùng click vào một phim
    const handleClickitem = item => {
       const itemTarget = item;
       setMovie([itemTarget]);
@@ -42,74 +46,69 @@ export default function Main() {
       }
    };
 
+   // Sử dụng useEffect để gọi API và lấy video của phim khi movie thay đổi
    useEffect(() => {
+      // Kiểm tra nếu có phim được chọn
       if (movie.length > 0) {
+         // Hàm fetchVideos để gọi API và lấy danh sách video của phim
          const fetchVideos = async () => {
             try {
                const response = await fetch(
                   `https://api.themoviedb.org/3/movie/${movie[0].id}/videos?api_key=${API_KEY}`,
                );
                const data = await response.json();
+               // Cập nhật state video với danh sách video trả về từ API
                setVideo(data.results);
             } catch (error) {
-               // console.error('Error fetching videos:', error);
-               setVideo([]); // Trả về mảng rỗng nếu gọi API thất bại
+               // Xử lý lỗi nếu không thể lấy được video
+               setVideo([]);
             }
          };
 
+         // Gọi hàm fetchVideos để lấy video của phim
          fetchVideos();
       } else {
+         // Nếu không có phim được chọn, reset state video về trạng thái rỗng
          setVideo([]);
       }
-
-      // if (!video || video.length === 0) {
-      //    setVideo(movie);
-      // }
    }, [movie]);
 
+   // Sử dụng useEffect để xử lý việc hiển thị chi tiết phim và video tương ứng
    useEffect(() => {
+      // Kiểm tra và cập nhật video
       const checkVideo = video ? (video.length !== 0 ? video : movie) : movie;
       if (checkVideo !== video) {
+         // Cập nhật state video với danh sách video hoặc phim nếu không có video
          setVideo(checkVideo);
       }
 
+      // Xác định thông tin chi tiết của phim
       if (video) {
+         // Kiểm tra số lượng video
          video.length === 1
-            ? video[0].backdrop_path
-               ? setDetailInfo(video[0])
-               : setDetailInfo(
+            ? // Nếu có một video, kiểm tra backdrop_path của video đó
+              video[0].backdrop_path
+               ? // Nếu có backdrop_path, sử dụng video[0] làm thông tin chi tiết
+                 setDetailInfo(video[0])
+               : // Nếu không có backdrop_path, tìm video có site là 'YouTube' và type là 'Trailer' để sử dụng làm thông tin chi tiết
+                 setDetailInfo(
                     video.find(
                        item =>
                           item.site === 'YouTube' && item.type === 'Trailer',
                     ),
                  )
-            : setDetailInfo(
+            : // Nếu có nhiều video, tìm video có site là 'YouTube' và type là 'Trailer' để sử dụng làm thông tin chi tiết
+              setDetailInfo(
                  video.find(
                     item => item.site === 'YouTube' && item.type === 'Trailer',
                  ),
               );
          if (video.length === 0) {
+            // Nếu không có video, sử dụng thông tin phim đầu tiên trong danh sách
             setDetailInfo(movie[0]);
          }
       }
    }, [video, movie]);
-
-   // console.log('Check Movie >>>', movie);
-   // TH1: nó có video done
-   // TH2: Không có video và đường link API lỗi => video = undefined done
-
-   /* Xử lý sau khi đã có data chuẩn
-
-   +++ Nếu detail info === movie ===> giữ nguyên định dạng
-   
-   +++ Nếu detail Info ===  video ===>  
-   
-   XỬ lý tìm video phù hợp: site === YouTube && type === Trailer/
-   
-   Trailer === undefine ==> type === Teaser
-    
-    
-   */
 
    return (
       <>

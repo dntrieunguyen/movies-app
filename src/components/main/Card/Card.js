@@ -2,15 +2,11 @@ import './Card.scss';
 import { prefixImg } from '../../../store/api';
 
 export default function Card({ data, onClick }) {
-   // const onHandleClick = item => {
-   //    console.log(
-   //       `https://api.themoviedb.org/3/movie/${item.id}/videos?api_key=${API_KEY}`,
-   //    );
-   // };
+   console.log(data);
    return (
       <figure className="card">
          {/* Hiển thị loại dữ liệu */}
-         <h2>{data.type}</h2>
+         {data.type && <h2>{data.type}</h2>}
          <div className="cardItems">
             {/* Lặp qua danh sách dữ liệu */}
             {data.map(item => (
@@ -27,7 +23,7 @@ export default function Card({ data, onClick }) {
                         : '' // Nếu không có đường dẫn hình ảnh, truyền chuỗi rỗng (không hiển thị hình ảnh)
                   }
                   alt=""
-                  onClick={() => onClick(item)}
+                  // onClick={() => onClick(item)}
                />
             ))}
          </div>
