@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../../components/navbar/Navbar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { API_KEY, prefixImg } from '../../store/api';
-import SearchCard from '../../components/SearchItem/SearchCard';
+import { API_KEY } from '../../store/api';
 import { createPortal } from 'react-dom';
 import MovieDetail from '../../components/MovieDetail/MovieDetail';
+import './Search.scss';
+import SearchForm from '../../components/SearchItem/SearchForm';
+import SearchResults from '../../components/SearchItem/SearchResults';
 
 const Search = () => {
    const [query, setQuery] = useState('');
@@ -127,49 +127,17 @@ const Search = () => {
    return (
       <>
          <Navbar></Navbar>
+         <div className="search-main">
+            <SearchForm
+               handeReset={handeReset}
+               inputValue={inputValue}
+               handeSearch={handeSearch}
+            ></SearchForm>
 
-         <div className="grid min-h-fit">
-            <div className="w-full row-start-1 ">
-               <div className="grid place-items-center my-16">
-                  <div className="w-[500px] h-[150px] bg-primary">
-                     <div className="form-search px-4 flex justify-between items-center gap-4 border-b-cyan-500 border">
-                        <input
-                           className="h-[50px] w-full bg-primary outline-none"
-                           type="text"
-                           ref={inputValue}
-                        />
-                        <FontAwesomeIcon
-                           className="search-icon"
-                           icon={faMagnifyingGlass}
-                        />
-                     </div>
-                     <div className="button-search flex justify-end px-4 gap-4">
-                        <button
-                           className="px-4 py-2 hover:text-primary text-content mt-10 hover:bg-cyan-500 uppercase"
-                           onClick={handeReset}
-                        >
-                           reset
-                        </button>
-                        <button
-                           onClick={handeSearch}
-                           className="px-3 py-2 text-primary text-content mt-10 bg-cyan-500 uppercase"
-                        >
-                           search
-                        </button>
-                     </div>
-                  </div>
-               </div>
-            </div>
-
-            <div className="search-main min-h-[800px] row-start-2">
-               <h2 className="text-primary font-bold p-4">Search Results</h2>
-               <div className=" grid grid-cols-9 gap-2 px-4">
-                  <SearchCard
-                     data={dataQuery}
-                     handleClickitem={handleClickitem}
-                  ></SearchCard>
-               </div>
-            </div>
+            <SearchResults
+               data={dataQuery}
+               handleClickitem={handleClickitem}
+            ></SearchResults>
          </div>
          {showDetail &&
             movie.length > 0 &&

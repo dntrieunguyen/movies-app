@@ -1,8 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { API_KEY, prefixImg } from '../../store/api';
+import { prefixImg } from '../../store/api';
 import './SearchCard.scss';
-import { createPortal } from 'react-dom';
-import MovieDetail from '../MovieDetail/MovieDetail';
 
 export default function SearchCard({ data, handleClickitem }) {
    return (
@@ -10,8 +7,6 @@ export default function SearchCard({ data, handleClickitem }) {
          {data &&
             data.map(item => (
                <img
-                  className="w-full h-full hover:cursor-pointer hover:scale-110 hover:transition 
-        hover:duration-500;"
                   key={item.id}
                   src={
                      item.poster_path

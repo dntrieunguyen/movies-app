@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+img {
+   @apply w-full h-full hover:cursor-pointer hover:scale-110 hover:transition 
+    hover:duration-500;
+}

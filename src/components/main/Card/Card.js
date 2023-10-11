@@ -2,7 +2,6 @@ import './Card.scss';
 import { prefixImg } from '../../../store/api';
 
 export default function Card({ data, onClick }) {
-   console.log(data);
    return (
       <figure className="card">
          {/* Hiển thị loại dữ liệu */}
@@ -23,7 +22,7 @@ export default function Card({ data, onClick }) {
                         : '' // Nếu không có đường dẫn hình ảnh, truyền chuỗi rỗng (không hiển thị hình ảnh)
                   }
                   alt=""
-                  // onClick={() => onClick(item)}
+                  onClick={() => onClick(item)}
                />
             ))}
          </div>
